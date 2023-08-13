@@ -38,12 +38,36 @@
 
 Что нужно сделать:
 
-Создайте новый проект pipeline.
-Перепишите сборку из задания 1 на declarative в виде кода.
-В качестве ответа пришлите скриншоты с настройками проекта и результатами выполнения сборки.
+1. Создайте новый проект pipeline.
+2. Перепишите сборку из задания 1 на declarative в виде кода.
+3. В качестве ответа пришлите скриншоты с настройками проекта и результатами выполнения сборки.
 
 #### Ответ на задание 2.
 
+1. Новый проект создан
+![image5](img/zadanie2/02_01.png)
+2. Текст декларативного скрипта:
+```
+pipeline {
+ agent any
+ stages {
+  stage('Git') {
+   steps {git branch: 'main', url: 'https://github.com/andaks1/sdvps-materials-fork-andaks.git'}
+  }
+  stage('Test') {
+   steps {
+    sh '/usr/bin/go test .'
+   }
+  }
+  stage('Build') {
+   steps {
+    sh 'docker build . -t andaks-ubuntu:8082/hello-world:v$BUILD_NUMBER'
+   }
+  }
+
+ }
+}
+```
 ---
 
 #### Задание 3
